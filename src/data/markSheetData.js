@@ -134,6 +134,15 @@ const markSheetData = [
 		'science': 47,
 		'social': 44,
 	},
+	{
+		'roll no': 14,
+		'name': 'X',
+		'tamil': 39,
+		'english': 80,
+		'maths': 84,
+		'science': 47,
+		'social': 44,
+	},
 ];
 
 export default markSheetData;

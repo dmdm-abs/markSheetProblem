@@ -2,8 +2,6 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable no-magic-numbers */
 
-import markSheetData from '../data/markSheetData';
-
 const standardizeMarkSheets = (markSheets) =>
 	markSheets.map((markSheet) => {
 		const { tamil, english, maths, science, social } = markSheet;
@@ -71,17 +69,11 @@ const genRankedMarkSheets = (markSheets) => {
 const processMarkSheets = (markSheets) =>
 	genRankedMarkSheets(calcResult(calcTotal(markSheets)));
 
-const displayAsTable = (data) => {
-	// eslint-disable-next-line no-console
-	console.table(data);
-};
-
-const markSheet = () => {
-	const markSheets = markSheetData;
+const markSheet = (markSheets) => {
 	const standardizedMarkSheets = standardizeMarkSheets(markSheets);
 	const processedMarkSheets = processMarkSheets(standardizedMarkSheets);
 
-	displayAsTable(processedMarkSheets);
+	return processedMarkSheets;
 };
 
 export default markSheet;
