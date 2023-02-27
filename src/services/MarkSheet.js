@@ -1,7 +1,3 @@
-/* eslint-disable complexity */
-/* eslint-disable max-lines-per-function */
-/* eslint-disable no-magic-numbers */
-
 const standardizeMarkSheets = (markSheets) =>
 	markSheets.map((markSheet) => {
 		const { tamil, english, maths, science, social } = markSheet;
@@ -28,37 +24,39 @@ const calcTotal = (markSheets) => markSheets.map((markSheet) => {
 const calcResult = (markSheets) =>
 	markSheets.map((markSheet) => {
 		const { tamil, english, maths, science, social } = markSheet;
-		const isPassed
-			= (tamil > 35) && (english > 35) && (maths > 35)
-			&& (science > 35) && (social > 35);
+		const minPassMark = 35;
+		const isPassed = minPassMark <= Math.min(
+			tamil, english, maths, science, social
+		);
 
-		return { ...markSheet, result: isPassed ? 'Pass' : 'Fail' };
+		return { ...markSheet, result: isPassed ? 'pass' : 'fail' };
 	});
 const getFailedMarkSheets = (markSheets) =>
-	markSheets.filter(({ result }) => result === 'Fail');
+	markSheets.filter(({ result }) => result === 'fail');
 
 const sortPassedMarkSheets = (markSheets) =>
 	[...markSheets].sort((a, b) => b.total - a.total);
 
 const getPassedMarkSheets = (markSheets) =>
-	markSheets.filter(({ result }) => result === 'Pass');
+	markSheets.filter(({ result }) => result === 'pass');
+
+const calcRank = (
+	acc, markSheet, key
+) => [
+	...acc,
+	{
+		...markSheet,
+		rank: key === 0
+			? 1
+			: acc[key - 1].total === markSheet.total
+				? acc[key - 1].rank
+				: key + 1,
+	},
+];
 
 const genRankedMarkSheets = (markSheets) => {
 	const passedMarkSheets = getPassedMarkSheets(markSheets);
 	const sortedPassedMarkSheets = sortPassedMarkSheets(passedMarkSheets);
-	const calcRank = (
-		acc, markSheet, key
-	) => [
-		...acc,
-		{
-			...markSheet,
-			rank: key === 0
-				? 1
-				: acc[key - 1].total === markSheet.total
-					? acc[key - 1].rank
-					: key + 1,
-		},
-	];
 
 	const rankedMarkSheets = sortedPassedMarkSheets.reduce(calcRank, []);
 	const failedMarkSheets = getFailedMarkSheets(markSheets)
