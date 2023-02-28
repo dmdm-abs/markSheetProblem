@@ -1,7 +1,13 @@
 .App {
 	text-align: center;
-
-	button {
-		font-weight: bold;
+	display: flex;
+	height: 100vh;
+	justify-content: center;
+	align-items: center;
+	.greenColor {
+		color: green;
 	}
+	.redColor {
+    color: red;
+  }
 }
