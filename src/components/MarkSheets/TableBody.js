@@ -1,8 +1,8 @@
 import React from 'react';
 import { map, values } from '@laufire/utils/collection';
-import processMarkSheets from '../services/MarkSheet';
+import processMarkSheets from '../../services/MarkSheet';
 
-const MarkSheetTableBody = ({ config: { markSheets }}) =>
+const TableBody = ({ config: { markSheets }}) =>
 	map(processMarkSheets(markSheets), (markSheet, index) =>
 		<tbody key={ index }>
 			<tr>
@@ -19,4 +19,4 @@ const MarkSheetTableBody = ({ config: { markSheets }}) =>
 			</tr>
 		</tbody>);
 
-export default MarkSheetTableBody;
+export default TableBody;
