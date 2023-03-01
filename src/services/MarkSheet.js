@@ -64,14 +64,13 @@ const rankMarkSheets = (markSheets) => {
 
 	return [...rankedMarkSheets, ...failedMarkSheets];
 };
-const processMarkSheets = (markSheets) =>
-	rankMarkSheets(calcResult(calcTotal(markSheets)));
 
-const markSheet = (markSheets) => {
+const processMarkSheets = (markSheets) => {
 	const standardizedMarkSheets = standardizeMarkSheets(markSheets);
-	const processedMarkSheets = processMarkSheets(standardizedMarkSheets);
+	const getTotal = calcTotal(standardizedMarkSheets);
+	const calculatedResult = calcResult(getTotal);
 
-	return processedMarkSheets;
+	return rankMarkSheets(calculatedResult);
 };
 
-export default markSheet;
+export default processMarkSheets;

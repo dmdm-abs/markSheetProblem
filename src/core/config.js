@@ -1,5 +1,5 @@
 const config = {
-	markSheetData: [
+	markSheets: [
 		{
 			rollNo: 1,
 			name: 'A',

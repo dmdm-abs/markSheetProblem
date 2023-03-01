@@ -1,22 +1,22 @@
 import React from 'react';
-import markSheet from '../services/MarkSheet';
 import { map, values } from '@laufire/utils/collection';
 import config from '../core/config';
+import processMarkSheets from '../services/MarkSheet';
 
 const MarkSheetTableBody = () =>
-	map(markSheet(config.markSheetData), (student, index) =>
+	map(processMarkSheets(config.markSheets), (markSheet, index) =>
 		<tbody key={ index }>
 			<tr>
-				{values(map(student, (details, key) =>
+				{values(map(markSheet, (value, key) =>
 					<td
 						key={ key }
 						className={ key === 'result'
-							? details === 'pass'
-								? 'passedStudents'
-								: 'failedStudents'
+							? value === 'pass'
+								? 'passedStudent'
+								: 'failedStudent'
 							: '' }
 					>
-						{details}</td>))}
+						{value}</td>))}
 			</tr>
 		</tbody>);
 
