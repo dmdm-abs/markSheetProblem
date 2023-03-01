@@ -2,7 +2,7 @@ import React from 'react';
 import { map, values } from '@laufire/utils/collection';
 import processMarkSheets from '../../services/MarkSheet';
 
-const TableBody = ({ config: { markSheets }}) =>
+const TableBody = ({ state: { markSheets }}) =>
 	map(processMarkSheets(markSheets), (markSheet, index) =>
 		<tbody key={ index }>
 			<tr>
