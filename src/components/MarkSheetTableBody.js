@@ -12,8 +12,8 @@ const MarkSheetTableBody = () =>
 						key={ key }
 						className={ key === 'result'
 							? details === 'pass'
-								? 'greenColor'
-								: 'redColor'
+								? 'passedStudents'
+								: 'failedStudents'
 							: '' }
 					>
 						{details}</td>))}
