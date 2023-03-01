@@ -54,7 +54,7 @@ const calcRank = (
 	},
 ];
 
-const genRankedMarkSheets = (markSheets) => {
+const rankMarkSheets = (markSheets) => {
 	const passedMarkSheets = getPassedMarkSheets(markSheets);
 	const sortedPassedMarkSheets = sortPassedMarkSheets(passedMarkSheets);
 
@@ -65,7 +65,7 @@ const genRankedMarkSheets = (markSheets) => {
 	return [...rankedMarkSheets, ...failedMarkSheets];
 };
 const processMarkSheets = (markSheets) =>
-	genRankedMarkSheets(calcResult(calcTotal(markSheets)));
+	rankMarkSheets(calcResult(calcTotal(markSheets)));
 
 const markSheet = (markSheets) => {
 	const standardizedMarkSheets = standardizeMarkSheets(markSheets);
