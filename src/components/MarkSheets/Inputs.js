@@ -6,14 +6,14 @@ import Input from './Input';
 const Inputs = (context) => {
 	const { state: { currentMarkSheet }} = context;
 
-	return <div>
+	return <tr>
 		{values(map(currentMarkSheet, (input, header) =>
 			<Input
 				key={ header }
 				{ ...{ ...context,
 					data: { input, header }} }
 			/>))}
-	</div>;
+	</tr>;
 };
 
 export default Inputs;

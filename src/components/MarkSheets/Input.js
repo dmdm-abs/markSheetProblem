@@ -4,7 +4,6 @@ const Input = (context) => {
 	const { actions, data: { input, header }} = context;
 
 	return <td>
-		<span>{header}:</span>
 		<input
 			type="text"
 			value={ input }
