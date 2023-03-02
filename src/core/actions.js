@@ -1,12 +1,14 @@
-import { peek } from '@laufire/utils/debug';
+const setValue = ({ state: { currentMarkSheet }, data: { header, value }}) =>
+	({ currentMarkSheet: { ...currentMarkSheet, [header]: value }});
 
-const changeRollNo = (context) => {
-	const { state: { currentMarkSheet }, data }	= context;
+const getMarkSheet = ({ state: { currentMarkSheet, markSheets }, seed }) => ({
+	markSheets: [...markSheets, currentMarkSheet],
+	currentMarkSheet: seed.currentMarkSheet,
+});
 
-	peek({ currentMarkSheet: { ...currentMarkSheet, rollNo: data }});
-};
 const actions = {
-	changeRollNo,
+	setValue,
+	getMarkSheet,
 };
 
 export default actions;
