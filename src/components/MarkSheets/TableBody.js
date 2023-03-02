@@ -10,10 +10,9 @@ const TableBody = ({ state: { markSheets }}) =>
 					<td
 						key={ key }
 						className={ key === 'result'
-							? value === 'pass'
-								? 'passedStudent'
-								: 'failedStudent'
-							: '' }
+							&& (value === 'pass'
+								? 'pass'
+								: 'fail') }
 					>
 						{value}</td>))}
 			</tr>

@@ -4,8 +4,8 @@ import React from 'react';
 
 const TableHeader = ({ config: { markSheetHeader }}) => <thead>
 	<tr>
-		{values(map(markSheetHeader, (header, index) =>
-			<th key={ index }>{header}</th>))}
+		{values(map(markSheetHeader, (header, key) =>
+			<th key={ key }>{header}</th>))}
 	</tr>
 </thead>;
 
