@@ -1,4 +1,5 @@
 const config = {
+	minPassMark: 35,
 	markSheetHeader: [
 		'rollNo',
 		'name',

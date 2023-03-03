@@ -3,12 +3,10 @@ import { map, values } from '@laufire/utils/collection';
 import processMarkSheets from '../../services/processMarkSheets';
 import Inputs from './Inputs';
 
-const TableBody = (context) => {
-	const { state: { markSheets }} = context;
-
-	return <tbody>
+const TableBody = (context) =>
+	<tbody>
 		<Inputs { ...context }/>
-		{map(processMarkSheets(markSheets), (markSheet, index) =>
+		{map(processMarkSheets(context), (markSheet, index) =>
 			<tr key={ index }>
 				{values(map(markSheet, (value, key) =>
 					<td
@@ -23,6 +21,5 @@ const TableBody = (context) => {
 			</tr>)}
 
 	</tbody>;
-};
 
 export default TableBody;
