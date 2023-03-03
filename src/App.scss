@@ -4,19 +4,15 @@
 	height: 100vh;
 	justify-content: center;
 	align-items: center;
+
 	.pass {
 		color: green;
 	}
 	.fail {
-    color: red;
-  }
-	.main {
-		display: flex;
-		justify-content: space-between;
+		color: red;
 	}
 	.input {
-		width: 50px;
+		width: 80px;
 		outline: none !important;
-		// border: 0;
 	}
 }

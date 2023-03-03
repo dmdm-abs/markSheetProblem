@@ -3,8 +3,8 @@ import TableBody from './TableBody';
 import TableHeader from './TableHeader';
 
 const MarkSheets = (context) =>
-	<div className="main">
-		<table>
+	<div>
+		<table border={ 1 }>
 			<TableHeader { ...context }/>
 			<TableBody { ...context }/>
 		</table>

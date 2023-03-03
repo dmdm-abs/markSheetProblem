@@ -1,7 +1,6 @@
 import { map } from '@laufire/utils/collection';
 import { values } from '@laufire/utils/lib';
 import React from 'react';
-import Button from './Button';
 
 const TableHeader = (context) => {
 	const { config: { markSheetHeader }} = context;
@@ -10,7 +9,6 @@ const TableHeader = (context) => {
 		<tr>
 			{values(map(markSheetHeader, (header, key) =>
 				<th key={ key }>{header}</th>))}
-			<th><Button { ...context }/></th>
 		</tr>
 	</thead>;
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { map, values } from '@laufire/utils/collection';
-import processMarkSheets from '../../services/MarkSheet';
+import processMarkSheets from '../../services/processMarkSheets';
 import Inputs from './Inputs';
 
 const TableBody = (context) => {
@@ -14,12 +14,14 @@ const TableBody = (context) => {
 					<td
 						key={ key }
 						className={ key === 'result'
-						&& (value === 'pass'
-							? 'pass'
-							: 'fail') }
+							? value === 'pass'
+								? 'pass'
+								: 'fail'
+							: '' }
 					>
 						{value}</td>))}
 			</tr>)}
+
 	</tbody>;
 };
 
