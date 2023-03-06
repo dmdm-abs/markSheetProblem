@@ -1,7 +1,9 @@
 import { filter, map, reduce } from '@laufire/utils/collection';
 
-const standardizeMarkSheets = ({ state: { markSheets },
-	config: { subjects }}) =>
+const standardizeMarkSheets = ({
+	state: { markSheets },
+	config: { subjects },
+}) =>
 	map(markSheets, (markSheet) => ({
 		...markSheet,
 		...reduce(
@@ -61,9 +63,7 @@ const rankMarkSheets = (context) => {
 		data: passedMarkSheets,
 	});
 
-	const rankedMarkSheets = reduce(
-		sortedPassedMarkSheets, calcRank, []
-	);
+	const rankedMarkSheets = sortedPassedMarkSheets.reduce(calcRank, []);
 
 	const failedMarkSheets = getResultedMarkSheets({
 		...context,
