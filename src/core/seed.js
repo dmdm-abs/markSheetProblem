@@ -1,14 +1,8 @@
+import config from './config';
+
 const seed = {
 	markSheets: [],
-	currentMarkSheet: {
-		rollNo: '',
-		name: '',
-		tamil: '',
-		english: '',
-		maths: '',
-		science: '',
-		social: '',
-	},
+	currentMarkSheet: config.currentMarkSheet,
 };
 
 export default seed;

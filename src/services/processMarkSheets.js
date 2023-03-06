@@ -1,45 +1,41 @@
-const standardizeMarkSheets = ({ state: { markSheets }}) =>
-	markSheets.map((markSheet) => {
-		const { tamil, english, maths, science, social } = markSheet;
+import { filter, map, reduce } from '@laufire/utils/collection';
 
-		return {
-			...markSheet,
-			tamil: Number(tamil),
-			english: Number(english),
-			maths: Number(maths),
-			science: Number(science),
-			social: Number(social),
-		};
-	});
-
-const calcTotal = ({ data }) => data.map((markSheet) => {
-	const { tamil, english, maths, science, social } = markSheet;
-
-	return {
+const standardizeMarkSheets = ({ state: { markSheets },
+	config: { subjects }}) =>
+	map(markSheets, (markSheet) => ({
 		...markSheet,
-		total: tamil + english + maths + science + social,
-	};
-});
-
-const isPassed = ({ markSheet, minPassMark }) => {
-	const { tamil, english, maths, science, social } = markSheet;
-
-	return minPassMark <= Math.min(
-		tamil, english, maths, science, social
-	);
-};
-
-const calcResult = ({ config: { minPassMark }, data }) =>
-	data.map((markSheet) => ({
-		...markSheet,
-		result: isPassed({ markSheet, minPassMark }) ? 'pass' : 'fail',
+		...reduce(
+			subjects, (acc, subject) => ({
+				...acc,
+				[subject]: Number(markSheet[subject]),
+			}), {}
+		),
 	}));
 
-const sortPassedMarkSheets = (markSheets) =>
-	[...markSheets].sort((a, b) => b.total - a.total);
+const calcTotal = ({ data, config: { subjects }}) => map(data, (markSheet) => ({
+	...markSheet,
+	total: reduce(
+		subjects, (total, value) => total + markSheet[value], 0
+	),
+}));
 
-const getResultedMarkSheets = (markSheets, grade) =>
-	markSheets.filter(({ result }) => result === grade);
+const isPassed = ({ data, config: { minPassMark, subjects }}) =>
+	minPassMark <= Math.min(map(subjects, (subject) => data[subject]));
+
+const calcResult = (context) => {
+	const { data } = context;
+
+	return map(data, (markSheet) => ({
+		...markSheet,
+		result: isPassed({ ...context, data: markSheet }) ? 'pass' : 'fail',
+	}));
+};
+
+const sortPassedMarkSheets = ({ data }) =>
+	[...data].sort((a, b) => b.total - a.total);
+
+const getResultedMarkSheets = ({ data, res }) =>
+	filter(data, ({ result }) => result === res);
 
 const calcRank = (
 	acc, markSheet, key
@@ -56,13 +52,23 @@ const calcRank = (
 ];
 
 const rankMarkSheets = (context) => {
-	const { data } = context;
-	const passedMarkSheets = getResultedMarkSheets(data, 'pass');
-	const sortedPassedMarkSheets = sortPassedMarkSheets(passedMarkSheets);
+	const passedMarkSheets = getResultedMarkSheets({
+		...context,
+		res: 'pass',
+	});
+	const sortedPassedMarkSheets = sortPassedMarkSheets({
+		...context,
+		data: passedMarkSheets,
+	});
 
-	const rankedMarkSheets = sortedPassedMarkSheets.reduce(calcRank, []);
+	const rankedMarkSheets = reduce(
+		sortedPassedMarkSheets, calcRank, []
+	);
 
-	const failedMarkSheets = getResultedMarkSheets(data, 'fail')
+	const failedMarkSheets = getResultedMarkSheets({
+		...context,
+		res: 'fail',
+	})
 		.map((studentData) => ({ ...studentData, rank: '-' }));
 
 	return [...rankedMarkSheets, ...failedMarkSheets];

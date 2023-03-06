@@ -1,17 +1,22 @@
+const subjects = ['tamil', 'english', 'maths', 'science', 'social'];
+
 const config = {
 	minPassMark: 35,
+	subjects: subjects,
 	markSheetHeader: [
 		'rollNo',
 		'name',
-		'tamil',
-		'english',
-		'maths',
-		'science',
-		'social',
+		...subjects,
 		'total',
 		'result',
 		'rank',
 	],
+	currentMarkSheet: {
+		rollNo: '',
+		name: '',
+		...subjects.reduce((acc, subject) =>
+			({ ...acc, [subject]: '' }), {}),
+	},
 };
 
 export default config;
