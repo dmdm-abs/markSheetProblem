@@ -1,37 +1,20 @@
 import { filter, map, reduce } from '@laufire/utils/collection';
 
-const standardizeMarkSheets = ({
-	state: { markSheets },
-	config: { subjects },
-}) =>
+const calcTotal = ({ state: { markSheets }, config: { subjects }}) =>
 	map(markSheets, (markSheet) => ({
 		...markSheet,
-		...reduce(
-			subjects, (acc, subject) => ({
-				...acc,
-				[subject]: Number(markSheet[subject]),
-			}), {}
+		total: reduce(
+			subjects, (total, value) => total + markSheet[value], 0
 		),
 	}));
-
-const calcTotal = ({ data, config: { subjects }}) => map(data, (markSheet) => ({
-	...markSheet,
-	total: reduce(
-		subjects, (total, value) => total + markSheet[value], 0
-	),
-}));
 
 const isPassed = ({ data, config: { minPassMark, subjects }}) =>
 	minPassMark <= Math.min(map(subjects, (subject) => data[subject]));
 
-const calcResult = (context) => {
-	const { data } = context;
-
-	return map(data, (markSheet) => ({
-		...markSheet,
-		result: isPassed({ ...context, data: markSheet }) ? 'pass' : 'fail',
-	}));
-};
+const calcResult = (context) => map(context.data, (markSheet) => ({
+	...markSheet,
+	result: isPassed({ ...context, data: markSheet }) ? 'pass' : 'fail',
+}));
 
 const sortPassedMarkSheets = ({ data }) =>
 	[...data].sort((a, b) => b.total - a.total);
@@ -65,18 +48,14 @@ const rankMarkSheets = (context) => {
 
 	const rankedMarkSheets = sortedPassedMarkSheets.reduce(calcRank, []);
 
-	const failedMarkSheets = getResultedMarkSheets({
-		...context,
-		res: 'fail',
-	})
+	const failedMarkSheets = getResultedMarkSheets({ ...context, res: 'fail' })
 		.map((studentData) => ({ ...studentData, rank: '-' }));
 
 	return [...rankedMarkSheets, ...failedMarkSheets];
 };
 
 const processMarkSheets = (context) => {
-	const standardizedMarkSheets = standardizeMarkSheets(context);
-	const getTotal = calcTotal({ ...context, data: standardizedMarkSheets });
+	const getTotal = calcTotal({ ...context });
 	const calculatedResult = calcResult({ ...context, data: getTotal });
 
 	return rankMarkSheets({ ...context, data: calculatedResult });

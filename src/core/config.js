@@ -12,10 +12,19 @@ const config = {
 		'rank',
 	],
 	currentMarkSheet: {
-		rollNo: '',
-		name: '',
+		rollNo: {
+			text: '',
+			type: 'text',
+		},
+		name: {
+			text: '',
+			type: 'text',
+		},
 		...subjects.reduce((acc, subject) =>
-			({ ...acc, [subject]: '' }), {}),
+			({ ...acc, [subject]: {
+				text: 0,
+				type: 'number',
+			}}), {}),
 	},
 };
 

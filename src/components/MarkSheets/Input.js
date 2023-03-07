@@ -1,15 +1,19 @@
+import { peek } from '@laufire/utils/debug';
 import React from 'react';
 
 const Input = (context) => {
-	const { actions, data: { input, header }} = context;
+	const { actions,
+		config: { currentMarkSheet }
+		, data: { input, header }} = context;
 
+	peek(header);
 	return <td>
 		<input
-			type="text"
+			type={ currentMarkSheet[header].type }
 			value={ input }
 			className="input"
 			onChange={ ({ target: { value }}) =>
-				actions.setValue({ value, header }) }
+				actions.setValue({ ...context, data: { header, value }}) }
 		/>
 	</td>;
 };
