@@ -4,16 +4,16 @@ import React from 'react';
 const Input = (context) => {
 	const { actions,
 		config: { currentMarkSheet }
-		, data: { input, header }} = context;
+		, data: { input, key }} = context;
 
-	peek(header);
+	peek(key, 'key-header');
 	return <td>
 		<input
-			type={ currentMarkSheet[header].type }
+			type={ currentMarkSheet[key].type }
 			value={ input }
 			className="input"
 			onChange={ ({ target: { value }}) =>
-				actions.setValue({ ...context, data: { header, value }}) }
+				actions.setValue({ key, value }) }
 		/>
 	</td>;
 };

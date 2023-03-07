@@ -8,11 +8,11 @@ const Inputs = (context) => {
 	const { state: { currentMarkSheet }} = context;
 
 	return <tr>
-		{values(map(currentMarkSheet, (input, header) =>
+		{values(map(currentMarkSheet, (input, key) =>
 			<Input
-				key={ header }
+				key={ key }
 				{ ...{ ...context,
-					data: { input, header }} }
+					data: { input, key }} }
 			/>))}
 		<td><Button { ...context }/></td>
 	</tr>;

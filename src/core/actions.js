@@ -1,6 +1,9 @@
-const setValue = ({ state: { currentMarkSheet }, data: { header, value }}) =>
-	({ currentMarkSheet: { ...currentMarkSheet,
-		[header]: value }});
+const setValue = ({ state: { currentMarkSheet }, data: { key, value }}) => ({
+	currentMarkSheet: {
+		...currentMarkSheet,
+		[key]: value,
+	},
+});
 
 const getMarkSheet = ({ state: { currentMarkSheet, markSheets }, seed }) => ({
 	markSheets: [...markSheets, currentMarkSheet],
