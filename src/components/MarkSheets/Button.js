@@ -1,9 +1,15 @@
 import React from 'react';
 
 const Button = (context) => {
-	const { actions: { getMarkSheet }} = context;
+	const { actions: { getMarkSheet, setCount }} = context;
 
-	return <button onClick={ () => getMarkSheet() }>Submit</button>;
+	return (
+		<button
+			onClick={ () => {
+				getMarkSheet();
+				setCount();
+			} }
+		>Submit</button>);
 }
 	;
 
