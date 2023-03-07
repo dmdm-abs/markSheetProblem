@@ -9,7 +9,7 @@ const calcTotal = ({ state: { markSheets }, config: { subjects }}) =>
 	}));
 
 const isPassed = ({ data, config: { minPassMark, subjects }}) =>
-	minPassMark <= Math.min(map(subjects, (subject) => data[subject]));
+	minPassMark <= Math.min(...map(subjects, (subject) => data[subject]));
 
 const calcResult = (context) => map(context.data, (markSheet) => ({
 	...markSheet,

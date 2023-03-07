@@ -10,7 +10,6 @@ const Button = (context) => {
 				setCount();
 			} }
 		>Submit</button>);
-}
-	;
+};
 
 export default Button;
