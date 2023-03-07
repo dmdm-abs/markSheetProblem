@@ -13,7 +13,8 @@ const Input = (context) => {
 			value={ input }
 			className="input"
 			onChange={ ({ target: { value }}) =>
-				actions.setValue({ key, value }) }
+				actions.setValue({ key: key,
+					value: currentMarkSheet[key].convertor(value) }) }
 		/>
 	</td>;
 };

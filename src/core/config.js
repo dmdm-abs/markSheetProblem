@@ -15,15 +15,18 @@ const config = {
 		rollNo: {
 			text: '',
 			type: 'text',
+			convertor: String,
 		},
 		name: {
 			text: '',
 			type: 'text',
+			convertor: String,
 		},
 		...subjects.reduce((acc, subject) =>
 			({ ...acc, [subject]: {
 				text: 0,
 				type: 'number',
+				convertor: Number,
 			}}), {}),
 	},
 };
