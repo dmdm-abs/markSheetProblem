@@ -24,7 +24,7 @@ const config = {
 		},
 		...subjects.reduce((acc, subject) =>
 			({ ...acc, [subject]: {
-				text: 45,
+				text: 0,
 				type: 'number',
 				convertor: Number,
 			}}), {}),
